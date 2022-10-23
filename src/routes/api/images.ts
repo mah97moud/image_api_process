@@ -26,8 +26,8 @@ images.get('', (req, res) => {
                 res.status(404).send(
                     `
         <center>
-        <h3>The following error has occurred ${err.message}</h3>
-        <h3>please enter the following url form : http://localhost:3000/api/images?filename=imagename&width=200&height=200</h3>
+        <h5>The following error has occurred ${err.message}</h5>
+        <h5>please enter the following url form : http://localhost:3000/api/images?filename=imagename&width=200&height=200</h5>
           
         </center>
         `
@@ -38,7 +38,7 @@ images.get('', (req, res) => {
             res.send(
                 `
     <center>
-    <h3> your new image with width ${q.width} and height ${q.height}</h3>
+    <h5> your new image with width ${q.width} and height ${q.height}</h5>
         <img src="http://localhost:3000/${q.filename}.jpg" />
     </center>
     `
