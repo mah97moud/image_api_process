@@ -24,8 +24,24 @@ Open image and change size uing endpoint
 
 <!-- End points for image process -->
 
-1- if http://localhost:3000/api/images then error message file not found
+1- if http://localhost:3000/api/images
+please enter a valide url like https://localhost.com:3000/api/images? filename=imagename&width=100&height=100'
 
 2- if http://localhost:3000/api/images/?filename=encenadaport then default image will with width and height = 100
 
 3- if http://localhost:3000/api/images?filename=encenadaport&width=300&height=300 new image will be created with width=300 and height=300
+
+4- if http://localhost:3000/api/images?filename=&width=300&height=300
+please enter a valide url like https://localhost.com:3000/api/images?filename=imagename&width=100&height=100'
+
+5- if http://localhost:3000/api/images/?filename=encenadaport
+Original image will be loaded from assets folder
+
+6- if http://localhost:3000/api/images/?filename=
+File not found
+
+7-if http://localhost:3000/api/images?filename=encenadaport&width=-300&height=300
+please enter a valide width
+
+8-if http://localhost:3000/api/images?filename=encenadaport&width=300&height=-300
+please enter a valide height

@@ -19,14 +19,22 @@ describe('Test Endpoint responses', () => {
     // done is passed so supertest would know that the test is done so it disconnects from the server.
     it('Successful endpoint call', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/api/images?filename=encenadaport&width=500&height=200');
-        console.log(response.body);
         expect(response.status).toBe(200);
         // done()
     }));
     it('File not found', () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get('/api/images');
-        console.log(response.body);
-        expect(response.status).toBe(404);
+        expect(response.status).toBe(400);
+        // done()
+    }));
+    it('width Error', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/api/images?filename=encenadaport&width=-500&height=200');
+        expect(response.text).toBe('please enter a valide width ');
+        // done()
+    }));
+    it('Height Error', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield request.get('/api/images?filename=encenadaport&width=500&height=-200');
+        expect(response.text).toBe('please enter a valide height ');
         // done()
     }));
 });

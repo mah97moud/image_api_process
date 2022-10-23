@@ -9,15 +9,30 @@ describe('Test Endpoint responses', () => {
         const response = await request.get(
             '/api/images?filename=encenadaport&width=500&height=200'
         )
-        console.log(response.body)
         expect(response.status).toBe(200)
         // done()
     })
 
     it('File not found', async () => {
         const response = await request.get('/api/images')
-        console.log(response.body)
-        expect(response.status).toBe(404)
+
+        expect(response.status).toBe(400)
+        // done()
+    })
+
+    it('width Error', async () => {
+        const response = await request.get(
+            '/api/images?filename=encenadaport&width=-500&height=200'
+        )
+        expect(response.text).toBe('please enter a valide width ')
+        // done()
+    })
+
+    it('Height Error', async () => {
+        const response = await request.get(
+            '/api/images?filename=encenadaport&width=500&height=-200'
+        )
+        expect(response.text).toBe('please enter a valide height ')
         // done()
     })
 })
