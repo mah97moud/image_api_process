@@ -18,9 +18,10 @@ Open image and change size uing endpoint
 
 <!-- The scripts -->
 
-1- for build script --> npm run build
-2- for test script --> npm run test
-3- for start script --> npm run start
+1- must run npm i typescript first of all
+2- for build script --> npm run build
+3- for test script --> npm run test
+4- for start script --> npm run start
 
 <!-- End points for image process -->
 
