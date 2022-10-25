@@ -6,7 +6,7 @@
   "scripts": {
     "test": "npm run build && npm run jasmine",
     "start": "nodemon src/index.ts",
-    "lint": "eslint *.js",
+    "lint": "eslint **/*.js",
     "build": "npx tsc",
     "jasmine": "jasmine",
     "prettier": "prettier --config .prettierrc **/*.js --write"
@@ -29,6 +29,8 @@
     "@types/sharp": "^0.31.0",
     "@types/supertest": "^2.0.12",
     "@types/typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.41.0",
+    "@typescript-eslint/parser": "^5.41.0",
     "eslint": "^8.26.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
