@@ -4,7 +4,7 @@ import routes from './routes/index'
 const app = express()
 const port = 3000
 
-app.use('/api', routes)
+app.use('/', routes)
 
 // app.use(express.static('assets'))
 

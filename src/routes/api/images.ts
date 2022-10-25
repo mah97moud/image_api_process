@@ -2,6 +2,7 @@ import express, { request } from 'express'
 import sharp from 'sharp'
 import fs from 'fs'
 import path from 'path'
+import utility from '../../utilities/utility'
 
 const images = express.Router()
 const routPath = path.resolve('./')
@@ -12,7 +13,7 @@ interface Query {
     height: number
 }
 
-images.get('', (req, res) => {
+images.get('/images', (req, res) => {
     const q: Query = {
         filename: req.query['filename'] as unknown as string,
         width: parseInt((req.query['width'] as unknown as string) ?? '100'),
@@ -40,6 +41,8 @@ images.get('', (req, res) => {
         return
     }
 
+    utility()
+
     fs.access(fileLocation, fs.constants.F_OK, (err) => {
         if (err) {
             res.status(400).send('File not found')
@@ -51,6 +54,8 @@ images.get('', (req, res) => {
                 (err) => {
                     if (err) {
                         console.log('Not Caching image')
+                        console.log(`file location ${fileLocation}`)
+
                         sharp(fileLocation)
                             .resize(q.width, q.height)
                             .toFile(
@@ -58,6 +63,7 @@ images.get('', (req, res) => {
                                 (err, info) => {
                                     if (err) {
                                         res.status(400).send(err)
+                                        console.log(err)
                                     } else {
                                         res.sendFile(
                                             `${cacheLocation}${q.width}x${q.height}.jpg`
@@ -76,55 +82,6 @@ images.get('', (req, res) => {
             )
         }
     })
-
-    // fs.access(
-    //     `cache/images/${q.filename}${q.width}x${q.height}.jpg`,
-    //     fs.constants.F_OK,
-    //     (err) => {
-    //         if (err) {
-    //             console.error(err)
-    //             sharp(`assets/images/${q.filename}.jpg`)
-    //                 .resize(q.width, q.height)
-    //                 .toFile(
-    //                     `cache/images/${q.filename}${q.width}x${q.height}.jpg`,
-    //                     (err, info) => {
-    //                         res.send(
-    //                             `
-    //         <center>
-    //         <h5> your new image with width ${q.width} and height ${q.height}</h5>
-    //             <img src="http://localhost:3000/${q.filename}${q.width}x${q.height}.jpg?filename=${q.filename}&width=${q.width}&height=${q.height}" />
-    //         </center>
-    //         `
-    //                         )
-    //                     }
-    //                 )
-    //             console.log('Not Caching')
-    //             return
-    //         } else {
-    //             res.send(
-    //                 `
-    // <center>
-    // <h5> your new image with width ${q.width} and height ${q.height}</h5>
-    //     <img src="http://localhost:3000/${q.filename}${q.width}x${q.height}.jpg?filename=${q.filename}&width=${q.width}&height=${q.height}" />
-    // </center>
-    // `
-    //             )
-    //             console.log('Caching')
-    //             return
-    //         }
-    //     }
-    // )
-
-    // res.sendFile(`${__dirname}/assets/index.html`)
-
-    // if (filename == undefined) {
-    //     fs.access(`cache/images/${filename}.jpg`, fs.constants.F_OK, (err) => {
-    //         if (err) {
-    //             res.send(`The following error occurred: File missing `)
-    //             return
-    //         }
-    //     })
-    // }
 })
 
 export default images

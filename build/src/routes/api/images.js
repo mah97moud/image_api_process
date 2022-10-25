@@ -11,7 +11,7 @@ const fs_1 = __importDefault(require('fs'))
 const path_1 = __importDefault(require('path'))
 const images = express_1.default.Router()
 const routPath = path_1.default.resolve('./')
-images.get('', (req, res) => {
+images.get('/', (req, res) => {
     var _a, _b, _c
     const q = {
         filename: req.query['filename'],
@@ -39,6 +39,24 @@ images.get('', (req, res) => {
         res.send('please enter a valide height ')
         return
     }
+    const cacheDir = `${routPath}/cache/images`
+    try {
+        if (
+            fs_1.default.existsSync(cacheDir) ||
+            fs_1.default.mkdirSync(cacheDir, { recursive: true })
+        ) {
+            console.log('Folders already exists')
+        } else {
+            fs_1.default.access(cacheDir, (error) => {
+                fs_1.default.mkdir(cacheDir, { recursive: true }, (err) => {
+                    if (err) throw err
+                    console.log('Folders created')
+                })
+            })
+        }
+    } catch (error) {
+        console.log(`error:- ${error}`)
+    }
     fs_1.default.access(fileLocation, fs_1.default.constants.F_OK, (err) => {
         if (err) {
             res.status(400).send('File not found')
@@ -50,6 +68,7 @@ images.get('', (req, res) => {
                 (err) => {
                     if (err) {
                         console.log('Not Caching image')
+                        console.log(`file location ${fileLocation}`)
                         ;(0, sharp_1.default)(fileLocation)
                             .resize(q.width, q.height)
                             .toFile(
@@ -57,6 +76,7 @@ images.get('', (req, res) => {
                                 (err, info) => {
                                     if (err) {
                                         res.status(400).send(err)
+                                        console.log(err)
                                     } else {
                                         res.sendFile(
                                             `${cacheLocation}${q.width}x${q.height}.jpg`
