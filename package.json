@@ -9,7 +9,7 @@
     "lint": "eslint **/*.js",
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "prettier": "prettier --config .prettierrc **/*.js --write"
+    "prettier": "prettier --config .prettierrc build/**/*.js --write"
   },
   "repository": {
     "type": "git",
