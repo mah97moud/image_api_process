@@ -14,17 +14,18 @@ function createDirection() {
             console.log('Folders already exists');
         }
         else {
-            fs_1.default.access(cacheDir, (error) => {
+            fs_1.default.access(cacheDir, () => {
                 fs_1.default.mkdir(cacheDir, { recursive: true }, (err) => {
-                    if (err)
+                    if (err) {
                         throw err;
+                    }
                     console.log('Folders created');
                 });
             });
         }
     }
     catch (error) {
-        console.log(`error:- ${error}`);
+        console.log('Error creating folder');
     }
 }
 exports.default = createDirection;

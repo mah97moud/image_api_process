@@ -8,7 +8,7 @@ const index_1 = __importDefault(require("./routes/index"));
 const app = (0, express_1.default)();
 const port = 3000;
 app.use('/', index_1.default);
-// app.use(express.static('assets'))
+// App.use(express.static('assets'))
 // app.use(express.static('cache/images'))
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
